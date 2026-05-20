@@ -1,44 +1,55 @@
-import java.util.Scanner;
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
 
-public class Main {
+public class MainTest {
 
-    public static double calculate(float a, float n, float m, float C) {
+    @Test
+    public void testMatrixMultiplication() {
 
-        double S = 0;
+        char[][] B = {
+                {'A', 'B'},
+                {'C', 'D'}
+        };
 
-        try {
+        int a = 2;
 
-            for (float i = a; i <= n; i++) {
-                for (float j = a; j <= m; j++) {
+        char[][] C = new char[2][2];
 
-                    float numerator = i * j;
-                    float denominator = i - C;
-
-                    if (denominator == 0) {
-                        throw new ArithmeticException(
-                                "Ділення на нуль: i - C = 0 при i = " + i);
-                    }
-
-                    S += numerator / denominator;
-                }
+        for (int i = 0; i < 2; i++) {
+            for (int j = 0; j < 2; j++) {
+                C[i][j] = (char) (B[i][j] * a);
             }
-
-        } catch (ArithmeticException e) {
-            System.out.println("Помилка: " + e.getMessage());
         }
 
-        return S;
+        assertEquals((char) ( 'A' * 2 ), C[0][0]);
     }
 
-    public static void main(String[] args) {
+    @Test
+    public void testSumLogic() {
 
-        float a = 1;
-        float n = 6;
-        float m = 4;
-        float C = 2;
+        char[][] C = {
+                {'A', 'B'},
+                {'C', 'D'}
+        };
 
-        double S = calculate(a, n, m, C);
+        int sum = 0;
 
-        System.out.println("S = " + S);
+        for (int i = 0; i < C.length; i++) {
+
+            char max = C[i][0];
+            char min = C[i][0];
+
+            for (int j = 1; j < C[i].length; j++) {
+                if (C[i][j] > max) max = C[i][j];
+                if (C[i][j] < min) min = C[i][j];
+            }
+
+            if (i % 2 == 0)
+                sum += max;
+            else
+                sum += min;
+        }
+
+        assertTrue(sum > 0);
     }
 }
