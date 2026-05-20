@@ -1,4 +1,4 @@
-name: Java CI
+name: Java CI (Maven)
 
 on:
   push:
@@ -17,8 +17,5 @@ jobs:
           distribution: temurin
           java-version: 17
 
-      - name: Compile
-        run: javac src/main/java/Main.java
-
-      - name: Run
-        run: java -cp src/main/java Main
+      - name: Build and test with Maven
+        run: mvn clean test
